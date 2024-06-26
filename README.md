@@ -1,1 +1,67 @@
-# CakeBash
+CakeBash Project Setup
+Prerequisites
+Python 3.x
+Django
+MySQL
+Step-by-Step Setup
+1. Clone the Repository
+Clone the repository to your local machine and navigate to the project directory:
+
+bash
+git clone https://github.com/yourusername/CakeBash.git
+cd CakeBash
+2. Create a Virtual Environment
+It's a good practice to use a virtual environment for your Python projects:
+
+bash
+python -m venv env
+source env/bin/activate  # On Windows use `env\Scripts\activate`
+3. Install Dependencies
+Install the required Python packages using pip:
+
+bash
+pip install -r requirements.txt
+4. Setup the Database
+4.1. Install MySQL
+Ensure you have MySQL installed on your system. You can download it from the MySQL official website.
+
+4.2. Create the Database and Import Data
+Open Command Prompt and navigate to the project directory:
+
+bash
+cd path\to\your\project\CakeBash
+Run the setup script:
+
+bash
+python setup_db.py
+This script will:
+
+Create a database named cake.
+Import the data from cakebash_dump.sql into the cake database.
+You will be prompted to enter your MySQL root password during this process.
+
+Note: Ensure that the cakebash_dump.sql file is located in the root directory of your project (same directory as manage.py).
+
+5. Configure Django Settings
+Update the DATABASES setting in my_django_project/settings.py to match your MySQL configuration:
+
+python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'cake',
+        'USER': 'your_mysql_user',
+        'PASSWORD': 'your_mysql_password',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+Replace your_mysql_user and your_mysql_password with your actual MySQL username and password.
+
+6. Run Django Migrations (if necessary)
+bash
+python manage.py migrate
+7. Start the Development Server
+bash
+python manage.py runserver
+You should now have the project up and running with the pre-populated database.
