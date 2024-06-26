@@ -10,12 +10,14 @@ Clone the repository to your local machine and navigate to the project directory
 bash
 git clone https://github.com/yourusername/CakeBash.git
 cd CakeBash
+
 2. Create a Virtual Environment
 It's a good practice to use a virtual environment for your Python projects:
 
 bash
 python -m venv env
 source env/bin/activate  # On Windows use `env\Scripts\activate`
+
 3. Install Dependencies
 Install the required Python packages using pip:
 
@@ -62,6 +64,8 @@ Replace your_mysql_user and your_mysql_password with your actual MySQL username 
 6. Run Django Migrations (if necessary)
 bash
 python manage.py migrate
+
+
 7. Start the Development Server
 bash
 python manage.py runserver
