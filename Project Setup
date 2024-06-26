@@ -3,6 +3,8 @@ Prerequisites
 Python 3.x
 Django
 MySQL
+
+
 Step-by-Step Setup
 1. Clone the Repository
 Clone the repository to your local machine and navigate to the project directory:
@@ -53,8 +55,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cakebash',
-        'USER': 'your_mysql_user',
-        'PASSWORD': 'your_mysql_password',
+        'USER': 'your_mysql_user',          #Replace 'your_mysql_user' with your_mysql_user Usually 'root'
+        'PASSWORD': 'your_mysql_password',  #Replace 'your_mysql_user' with your_mysql_passwowrd
         'HOST': 'localhost',
         'PORT': '3306',
     }
