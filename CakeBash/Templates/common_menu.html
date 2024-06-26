@@ -1,0 +1,96 @@
+{% extends "to_menu.html" %} {% block Title %} 
+{{additional_content.category}}{{category}}{% endblock Title %} {% block search_result %}
+<p>{{additional_content.search_for}} {{search_for}}</p>
+
+{% endblock search_result %} {% block Cards %} {%for item in queryset%}
+<div class="col-md-3z">
+  <div class="card">
+    <div class="cake-name">{{item.name}}</div>
+    <img src="/{{item.image}}" alt="Cake image" class="cake-image" />
+    <div class="cake-price">{{item.price}}</div>
+    {% comment %}
+    <form action="/add/{{item.id}}" method="post">
+      {% csrf_token %} {% endcomment %}
+      <button
+        class="btn btn-info add-button"
+        id="add_button_{{item.id}}"
+        style="display: block"
+      >
+        Add
+      </button>
+      <select
+        class="add-button rounded"
+        id="add_select_{{item.id}}"
+        style="display: none"
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      {% comment %}
+    </form>
+    {% endcomment %}
+  </div>
+</div>
+{%endfor%}
+<div id="empty_cart" style="display: none" class="centered-div">
+  <img src="/static/empty_cart.jpg" class="empty" />
+  <p>
+    I'm sorry, but it seems the cake you're searching for is playing hide and
+    seek in our bakery.
+  </p>
+  <p>Maybe it's camera shy, or just too good to be found easily!</p>
+</div>
+{% endblock Cards %} {% block script %}
+<script>
+  var condition = {{ is_empty|yesno:"false,true" }};
+
+  // Get the element with ID "admincontent"
+  var cart_content = document.getElementById("cart_content");
+  var empty_cart = document.getElementById("empty_cart");
+
+  // If the condition is true, display the admin content
+  if (!condition) {
+    empty_cart.style.display = "block";
+  }
+</script>
+
+<script>
+  {% for item in queryset %}
+  $('#add_button_'+{{item.id}}).click(function(){
+    console.log('Button clicked')
+    $(this).hide('fast')
+    $('#add_select_'+{{item.id}}).show('fast',function(){
+      $(this).val('1')
+    })
+    $.ajax({
+      url:"/update/{{item.id}}",
+    })
+  })
+  $('#add_select_'+{{item.id}}).change(function(){
+    selectedValue=$(this).val()
+    $.ajax({
+      url:"/update/{{item.id}}",
+      data:{'selectedValue':selectedValue}
+    })
+  })
+  {% endfor %}
+  {% for order in orders %}
+
+    if ({{ order.quantity }} > 0) {
+      $('#add_button_' + {{ order.product_id_id }}).hide('fast');
+      $('#add_select_' + {{ order.product_id_id }}).show('fast', function() {
+          $(this).val('{{ order.quantity }}');
+      });
+    }
+    
+  {% endfor %}
+</script>
+{% endblock script %}

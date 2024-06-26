@@ -1,0 +1,155 @@
+{% extends "Skele.html" %} {% block Title %} Menu SetUp{% endblock Title %}
+{%block style %}
+<style>
+  /* Font Styles */
+  /* Color Scheme */
+  body {
+    background-color: #fff; /* White background for a clean look */
+    color: #333; /* Dark gray text for readability */
+  }
+
+  /* Styles for the pop-up */
+  .popup {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  .loader-container {
+    display: ;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    align-items: center;
+  }
+  .loader {
+    width: 100px; /* Adjust the width and height based on your GIF size */
+    height: 100px;
+  }
+</style>
+{% endblock style %} {% block Body %}
+<main class="">
+  {% comment %} Form {% endcomment %}
+  <style></style>
+  <div class="custom-gap px-5 mx-5">
+    <form action="/MenuSetUp" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="my-3">
+        <h3><label for="name" class="form-label">Name of the dish!!</label></h3>
+        <input type="input" class="form-control" name="name" value="{{ form.name.value }}">
+
+        <div id="name" class="form-text">
+          Is this cake a mystery novel or do you mind sharing the title before I
+          take a bite and get lost in its delicious plot?
+        </div>
+      </div>
+      <div class="my-3">
+        <h3><label for="Categories">Category :</label></h3>
+        <select name="categories" id="categories" multiple required>
+            {% for cat in all_categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <p>*Press ctrl or cmd for multiple select</p>
+      </div>
+      <div class="my-3">
+        <h3><label for="image" class="form-label">Image</label></h3>
+        <input type="file" id="image" name="image" accept="image/*" placeholder="{{form.image.value}}">
+        <div id="imageHelp" class="form-text">
+          This cake is so stunning, it should have its own foodie fan club! 🍰✨
+          #EdibleMasterpiece
+        </div>
+      </div>
+      <div class="mb-3">
+        <h3><label for="price" class="form-label" placeholder="{{form.price.value}}">Price</label></h3>
+        <input
+          type=""
+          class="form-control"
+          name="price"
+          id="exampleInputPrice"
+        />
+        <div id="price" class="form-text">
+          Is this cake priced in rupees or in dreams? Because I might need to
+          mortgage my dessert fantasies for a slice of this heaven.
+        </div>
+      </div>
+      <div class="mb-5">
+        <h3><label for="is_veg">Veg or Non-Veg:</label><br /></h3>
+        <select id="is_veg" name="is_veg">
+          <option value="True">Veg</option>
+          <option value="False">Contains-Egg</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <h3>
+          <label for="description" class="form-label"
+            >Description about the cake!</label
+          >
+        </h3>
+        <input
+          type="text"
+          class="form-control"
+          name="description"
+          id="exampleInputDesc"
+          placeholder="{{form.description.value}}"
+        />
+        <div id="price" class="form-text"></div>
+      </div>
+
+      <button
+        type="submit"
+        id="submit_button"
+        class="btn btn-outline Custom-color-active border color-change-button"
+      >
+        ADD TO MENU
+      </button>
+    </form>
+    <div style="color:red">{{ form.errors|safe }}{{name_anomaly}}</div>
+  </div>
+  <div class="loader-container" id="popupOverlay">
+    <!-- The pop-up content -->
+    <div class="popup">
+      <p>Successfully added to the Menu😋😍</p>
+      <div>
+        <a href="/"><button>Go to Menu</button></a>
+        <button onclick="closePopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock Body %} {% block script %}
+<script>
+  // Function to open the pop-up
+  document.querySelector("#submit_button").addEventListener(
+    "click",
+    setTimeout(function () {
+      var cond = "{{is_saved}}";
+      console.log(cond);
+      var condition = (cond === "True" ? true : false);
+
+      // Get the element with ID "admincontent"
+      var popupContent = document.getElementById("popupOverlay");
+
+      // If the condition is true, display the admin content
+      if (condition) {
+        popupContent.style.display = "flex";
+      } 
+    }, 0)
+  );
+  // Function to close the pop-up
+  function closePopup() {
+    document.getElementById("popupOverlay").style.display = "none";
+  }
+  // Simulate an asynchronous action (e.g., fetching data)
+  setTimeout(function () {
+    // Hide loading animation container after a delay
+    document.getElementById("loaderContainer").style.display = "none";
+    // Show the content of the webpage
+    document.body.style.visibility = "visible";
+  }, 2000); // Simulate a delay of 2 seconds
+</script>
+{% endblock script %}

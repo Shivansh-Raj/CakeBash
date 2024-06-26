@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CakeBash</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #333;
+  }
+
+  .hero {
+    position: relative;
+    background-image: url('/static/bg_image.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+  }
+
+  .hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .hero .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero h1 {
+    font-size: 3em;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(255, 0, 255, 0.7);
+  }
+
+  .hero p {
+    font-size: 1.5em;
+    text-shadow: 2px 2px 4px rgba(0, 255, 255, 0.7);
+  }
+
+  .featured-cakes, .custom-cakes, .testimonials {
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+  .featured-cakes .cakes, .testimonials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cake, .testimonial {
+    margin: 20px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px;
+  }
+
+  .cake img {
+    max-width: 100%;
+    border-radius: 5px;
+  }
+
+  .cake h3, .testimonial h3 {
+    margin: 10px 0;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #ff6f61;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+
+  .btn:hover {
+    background-color: #ff4c3b;
+  }
+
+  footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+
+  footer .social-links {
+    list-style: none;
+    padding: 0;
+  }
+
+  footer .social-links li {
+    display: inline;
+    margin: 0 10px;
+  }
+
+  footer .social-links a {
+    color: white;
+    text-decoration: none;
+  }
+
+  footer .social-links a:hover {
+    text-decoration: underline;
+  }
+  .cake-img{
+    height:30vh;
+  }
+</style>
+
+<body>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Welcome to CakeBASh</h1>
+            <p>Indulge in a World of Cakes</p>
+        </div>
+    </header>
+
+    <!-- Featured Cakes Section -->
+    <section class="featured-cakes">
+        <h2>Discover Our Delightful Cakes</h2>
+        <div class="cakes">
+            <div class="cake">
+                <img src="static/cake1.jpg" class="cake-img" alt="Chocolate Truffle Cake">
+                <h3>Chocolate Truffle Cake</h3>
+                <p>Rich, moist, and indulgent, perfect for chocolate lovers.</p>
+            </div>
+            <div class="cake">
+                <img src="static/cake2.jpg" class="cake-img" alt="Classic Vanilla Cake">
+                <h3>Classic Vanilla Cake</h3>
+                <p>Light, fluffy, and timeless – a perfect treat for any occasion.</p>
+            </div>
+            <div class="cake">
+                <img src="static/cake3.jpg" class="cake-img" alt="Red Velvet Cake">
+                <h3>Red Velvet Cake</h3>
+                <p>Smooth and velvety with a hint of cocoa, topped with creamy frosting.</p>
+            </div>
+            <div class="cake">
+                <img src="static/chocolate_lust.jpg" class="cake-img" alt="Fruit Cake">
+                <h3>Fruit Cake</h3>
+                <p>A delightful medley of fresh fruits and creamy goodness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Cakes Section -->
+    <section class="custom-cakes">
+        <h2>Dive into the world of FLUFFY Delicious breads</h2>
+        <a href="/index" class="btn">Order Delicious cakes Now-></a>
+    </section>
+
+    <!-- Customer Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial">
+            <p>"The best cake I've ever had! CakeBASh made my wedding day even more special."</p>
+            <h3>- Sarah L.</h3>
+        </div>
+        <div class="testimonial">
+            <p>"Amazing flavors and beautiful designs. Highly recommend CakeBASh for any occasion."</p>
+            <h3>- James K.</h3>
+        </div>
+        <div class="testimonial">
+            <p>"Their custom cakes are a work of art! Absolutely loved it."</p>
+            <h3>- Emily R.</h3>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 CakeBASh. All rights reserved.</p>
+            <ul class="social-links">
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>

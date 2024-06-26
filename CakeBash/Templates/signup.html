@@ -1,0 +1,169 @@
+{% extends "Skele.html" %}
+{% comment %} <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head> {% endcomment %}
+  {% block style %}
+  <style>
+        
+    .flash-message-success{
+      background-color:rgba(200, 0, 255,0.5);
+      color:black;
+      text-align:center;
+    }
+    .flash-message{
+      background-color:rgb(255, 0, 0);
+      opacity:0.5;
+      color:rgb(173, 152, 152);
+      text-align:center;
+    }
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      width: 100%;
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .btn-bd-primary {
+      --bd-violet-bg: #712cf9;
+      --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+      --bs-btn-font-weight: 600;
+      --bs-btn-color: var(--bs-white);
+      --bs-btn-bg: var(--bd-violet-bg);
+      --bs-btn-border-color: var(--bd-violet-bg);
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: #6528e0;
+      --bs-btn-hover-border-color: #6528e0;
+      --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+      --bs-btn-active-color: var(--bs-btn-hover-color);
+      --bs-btn-active-bg: #5a23c8;
+      --bs-btn-active-border-color: #5a23c8;
+    }
+
+    .bd-mode-toggle {
+      z-index: 1500;
+    }
+
+    .bd-mode-toggle .dropdown-menu .active .bi {
+      display: block !important;
+    }
+    html,
+body {
+  height: 100%;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 1rem;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+  {% endblock style %}
+  
+  <!-- Custom styles for this template -->
+
+  {% block bodyclass %}"d-flex"{% endblock bodyclass %}
+  {% block Body %}
+  <main class="form-signin w-100 m-auto " style="padding-top:5%">
+  <form method="post" action="/signup/1">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal decorative-border">Sign Up</h1>
+  
+    <div class="form-floating">
+      <input type="text" name="username" class="form-control" value="{{form.username.value}}" id="text" placeholder="username">
+      <label for="username">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="email" name="email" class="form-control"  value="{{form.email.value}}"id="email" placeholder="email">
+      <label for="email">Email</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" value="{{form.password.value}}"id="floatingPassword" placeholder="Password" name="password1">
+      <label for="floatingPassword">Password</label>
+    </div>
+    <div class="form-floating ">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password2">
+      <label for="floatingPassword">Password Confirmation</label>
+    </div>
+    <button class="btn btn-outline color-change-button w-100 py-2" type="submit">Sign Up</button>
+    <p class="mt-3 mb-3 text-body-secondary">&copy; 2017–2023</p>
+  </form>
+  <div class="flash-message m-1" >
+    {% comment %} {% for error in form.errors %}
+      <p>{{ error }}</p>
+    {% endfor %} {% endcomment %}
+    {{form.errors}}
+
+    {{pass_mismatch.message}}</div>
+  <div class="flash-message-success m-1" >{{success}}</div>
+  <script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <a href="/login" class="btn btn-info"><--Back to login</a>
+  </main>
+  {% endblock Body %}
+{% block script %}
+{% endblock script %}

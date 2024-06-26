@@ -1,0 +1,355 @@
+{% extends "Skele.html" %}
+{% block Title %} Orders{% endblock Title %}
+{% block style %}
+<style>
+  @media screen and (max-width: 600px) {
+    #scrolling-container {
+        display: none;
+    }
+  }
+
+  .scrolling-container {
+    width:90%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px; 
+  }
+
+  .scrolling-controls {
+    display: flex;
+    width: 100%; /* Set a fixed width to match the gallery */
+    align-items: center;
+  }
+
+  .scrolling-gallery {
+    overflow: hidden; /* Hide the horizontal overflow */
+
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Set a fixed width to display only three images */
+  }
+
+  .img-scroll {
+    width: 250px;
+    height: 300px;
+    margin-right: 10px;
+  }
+  .rounded-circle-border {
+    border-radius: 50%;
+  }
+  .cake-container {
+    position: relative;
+    width: 250px;
+    height: 300px;
+    border: 1px solid #ccc;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .cake-image {
+    width: 100%;
+    height: 50%;
+    object-fit: cover;
+  }
+
+  .cake-details {
+    padding: 10px;
+    box-sizing: border-box;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .price {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .add-button {
+    position: absolute;
+    background-color:#ff95f8;
+    bottom: 10px;
+    right: 10px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  .child-div {
+    display: inline-block; 
+    width:250px;
+
+  }
+  .desc{
+    width:230px;
+    word-wrap: break-word;
+    
+  }
+  .description{
+    white-space: normal;
+    overflow: hidden; 
+    height:70px;
+    overflow-y:scroll;
+  }
+  .comment {
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+  }
+
+  .profile-pic {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+  }
+
+  .comment-details {
+      flex-grow: 1;
+  }
+
+  .comment-text {
+      margin-top: 5px;
+      color: #2333;
+  }
+</style>
+{% endblock style %}
+{% block Body %}
+<main>
+  <div class="flex-container">
+    {% comment %} Sidebar {% endcomment %}
+    <div class="fix d-flex flex-column flex-shrink-0 bg-body-tertiary " style="width:15%; max-width:4.5rem; height=100;">
+        <a href="/" class="d-block p-3 link-body-emphasis text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+          <svg class="bi pe-none" width="40" height="32"><use xlink:href="#bootstrap"></svg>
+          <span class="visually-hidden">Icon-only</span>
+        </a>
+        <ul class="nav nav-pills nav-flush flex-column mb-auto text-center  " >
+          <li class="nav-item ">
+            <a href="/index" class="nav-link py-3 border-bottom rounded-0  Custom-color" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="right" >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z">
+                  </svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link Custom-color  py-3 border-bottom rounded-0" title="Dashboard" data-bs-toggle="tooltip" data-bs-placement="right" fill="pink">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake2-fill" viewBox="0 0 16 16">
+                    <path d="m2.899.804.595-.792.598.79A.747.747 0 0 1 4 1.806v4.886c-.354-.06-.689-.127-1-.201V1.813a.747.747 0 0 1-.1-1.01ZM13 1.806v4.685a15.19 15.19 0 0 1-1 .201v-4.88a.747.747 0 0 1-.1-1.007l.595-.792.598.79A.746.746 0 0 1 13 1.806m-3 0a.746.746 0 0 0 .092-1.004l-.598-.79-.595.792A.747.747 0 0 0 9 1.813v5.17c.341-.013.675-.031 1-.055zm-3 0v5.176c-.341-.012-.675-.03-1-.054V1.813a.747.747 0 0 1-.1-1.01l.595-.79.598.789A.747.747 0 0 1 7 1.806"/>
+                    <path d="M4.5 6.988V4.226a22.6 22.6 0 0 1 1-.114V7.16c0 .131.101.24.232.25l.231.017c.332.024.672.043 1.02.055l.258.01a.25.25 0 0 0 .26-.25V4.003a29.015 29.015 0 0 1 1 0V7.24a.25.25 0 0 0 .258.25l.259-.009c.347-.012.687-.03 1.019-.055l.231-.017a.25.25 0 0 0 .232-.25V4.112c.345.031.679.07 1 .114v2.762a.25.25 0 0 0 .292.246l.291-.049c.364-.061.71-.13 1.033-.208l.192-.046a.25.25 0 0 0 .192-.243V4.621c.672.184 1.251.409 1.677.678.415.261.823.655.823 1.2V13.5c0 .546-.408.94-.823 1.201-.44.278-1.043.51-1.745.696-1.41.376-3.33.603-5.432.603-2.102 0-4.022-.227-5.432-.603-.702-.187-1.305-.418-1.745-.696C.408 14.44 0 14.046 0 13.5v-7c0-.546.408-.94.823-1.201.426-.269 1.005-.494 1.677-.678v2.067c0 .116.08.216.192.243l.192.046c.323.077.669.147 1.033.208l.292.05a.25.25 0 0 0 .291-.247ZM1 8.82v1.659a1.935 1.935 0 0 0 2.298.43.935.935 0 0 1 1.08.175l.348.349a2 2 0 0 0 2.615.185l.059-.044a1 1 0 0 1 1.2 0l.06.044a2 2 0 0 0 2.613-.185l.348-.348a.938.938 0 0 1 1.082-.175c.781.39 1.718.208 2.297-.426V8.833l-.68.907a.938.938 0 0 1-1.17.276 1.938 1.938 0 0 0-2.236.363l-.348.348a1 1 0 0 1-1.307.092l-.06-.044a2 2 0 0 0-2.399 0l-.06.044a1 1 0 0 1-1.306-.092l-.35-.35a1.935 1.935 0 0 0-2.233-.362.935.935 0 0 1-1.168-.277z"/>
+                  </svg>
+            </a>
+          </li>
+          <li>
+            <a href="/orders" class="nav-link Custom-color-active py-3 border-bottom rounded-0" title="Orders" data-bs-toggle="tooltip" data-bs-placement="right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                  </svg>            
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link Custom-color py-3 border-bottom rounded-0" title="Products" data-bs-toggle="tooltip" data-bs-placement="right">
+              <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Products"><use xlink:href="#grid"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link Custom-color py-3 border-bottom rounded-0" title="Customers" data-bs-toggle="tooltip" data-bs-placement="right">
+              <svg class="bi pe-none" width="24" height="24" role="img" aria-label="Customers"><use xlink:href="#people-circle"/></svg>
+            </a>
+          </li>
+        </ul>
+        <div class="dropdown border-top">
+          <a href="#" class="d-flex align-items-center justify-content-center p-3 link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg>         
+            </a>
+          <ul class="dropdown-menu text-small shadow">
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Contact us</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/login">Login</a></li>
+          </ul>
+        </div>
+    </div>
+    {% comment %} right div {% endcomment %}
+    <div class="right-Div ">
+      <div class="text-center flex-container">
+        <div class="row custom-gap "style="max-width:100%">
+          <h2>Shopping Cart</h2>
+          <div class="container text-center   col-md-8 m-3 border border-5"style="max-width:85%">
+            {% for item in cart %}
+                <div class="row align-items-center m-2">
+                  <div class="col-md-2 p-3">
+                    <img src="/{{item.image}}" class="rounded-circle" width="100" height="100" alt="Circular Cake Image">
+                  </div> 
+                  <div class="col-md-2 text center">
+                    <span><h5>{{item.name}}</h5></span>
+                  </div>
+                  <div class="col-md-6 text-right">
+                    <span><p>{{item.description}}</p></span>
+                    <span style="display: inline-block;">Quantity:</span>
+                    <select class="rounded" id="add_select_{{ item.id }}">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 text center">
+                    <span><h5>Price :<b>₹</b>{{item.price}} </h5></span>
+                    <form method="post" action="/orders">
+                    {% csrf_token %}
+                    <button class="btn btn-danger"type="submit" id="delete_{{item.id}}" name="item_name"value="{{item.id}}">Delete</a></button>
+                    </form>
+                  </div>
+                </div>
+                <div><hr class="divider"></div>
+              {% endfor %}
+          </div>
+          <div class="place_order col-md-4  border border-5 right-div m-3 p-2" style="max-height:320px;max-width:85%" id="cart_totalling">
+            <h5 id="subtotal">Subtotal({{length}} items) : {{total_price}}</h5>
+            <h6>Delivery Fee : <h5>
+            <h6>Tax and GST : <h5>
+            <div><hr class="divider"></div>
+            <h4 id="total">Total : {{total_price}}</h4><br>
+            <a href="/"><button type="button"class="w-100 btn btn-outline-success" >Proceed to Buy</button></a><br><br>
+            <a href="/"><button type="button"class="w-100 btn btn-outline-info">Add more items</button></a>
+
+          </div>
+        </div>
+      </div>
+      {% comment %} Image Gallery {% endcomment %}
+        <div><hr class="divider"></div>
+        <div id="scrolling-container">
+          <h3 class="mt-4 mx-4">Try our other Fresh baked products of our Bakery!</h3>
+          <p class="mb-1 mx-4">No luck with that cake, but our other delights are waiting to steal the show! Ready for a taste revolution?</p>
+          
+          <div class="container mt-3 scrolling-container">
+            <div class="scrolling-controls" id="scrollControls">
+              <button class="btn btn-outline-danger rounded h-50" onclick="scrollGallery(-1)" id="prevBtn">&lt;</button>
+              <div class="scrolling-gallery" id="imageGallery">
+                <div >
+                  {% for item in random_records %}
+                  <div class="cake-container img-scroll child-div rounded" id="cart_item_{{item.id}}">
+                    <img class="cake-image rounded-top" src="{{item.image}}" alt="Cake Image">
+                    <div class="cake-details">
+                      <div class="desc">
+                        <p class="description">
+                          <!-- Add your description here -->
+                          {{item.description}}
+                        </p>
+                      </div>
+                      <div class="price">
+                        <!-- Add your price here -->
+                        ${{item.price}}
+                      </div>
+                      <button class="btn btn-outline-info add-button">Add to Cart</button>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <button class="btn btn-outline-danger rounded-circle-border h-50 rounded" onclick="scrollGallery(1)" id="nextBtn">&gt;</button>
+            </div>
+          </div> 
+        </div>
+        <hr class="divider"></hr>
+        {% comment %} Review {% endcomment %}
+        <h3 class="mx-5">Customer Review</h3>
+        <div class="rounded-Circular-border border-info border-3 m-5">
+          <form method="post">
+            <div class="input-group">
+              {% csrf_token %}
+              <input type="text" class="form-control" placeholder="Please provide your your honest opinion" name="content">
+              <button class="btn btn-outline-success" type="submit">Post</button>
+            </div>
+          </form>          
+          <hr class="divider"></hr>
+          <div class="border rounded p-3 " >
+            {% for reviews in reviews%}
+            <div class="comment">
+              <img src="/static/user_img.jpg" class="profile-pic" alt="Profile Picture">
+              <div class="comment-details">
+                  <span class="username fw-bold">{{reviews.by.username}}</span>
+                  <p class="comment-text">{{reviews.content}}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>  
+    </div>
+    
+
+  
+</main>
+
+{% endblock Body %}
+{% block script %}
+<script>
+  function scrollGallery(direction) {
+    const gallery = document.getElementById('imageGallery');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const scrollAmount = 120; // Adjust this value to control the scroll distance
+
+    if (direction === -1) {
+      gallery.scrollTo({
+        left: gallery.scrollLeft - scrollAmount,
+        behavior:'smooth'
+      });
+    } else {
+      gallery.scrollTo({
+        left: gallery.scrollLeft + scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // Check if the gallery is at the left end
+    prevBtn.disabled = gallery.scrollLeft === 0;
+
+    // Check if the gallery is at the right end
+    nextBtn.disabled = Math.round(gallery.scrollLeft+ direction*scrollAmount + gallery.clientWidth >= gallery.scrollWidth);
+  }
+
+</script>
+<script>
+  function totalling(count,total){
+    console.log($('#subtotal').text('Subtotal('+count+' items) :'+ total))
+    console.log($('#total').text('Total : '+total))
+  }
+
+</script>
+<script>
+  {% for item in cart %}
+    $('#add_select_'+{{item.id}}).change(function(){
+      selectedValue=$(this).val()
+      $.ajax({
+        url:"/cart_update/{{item.id}}",
+        data:{'selectedValue':selectedValue},
+        success:function(response){
+          var parts = response.split(' '); 
+          totalling(parts[0],parts[1])
+          console.log(parts[0], parts[1]);
+        },
+      })
+    })
+    {% comment %} $('#delete_'+{{item.id}}).click(function(){
+        $('#cart_item'+{{item.id}}).css('display','none')
+        $.ajax({
+          url:"/delete_item/{{item.id}}"
+        })
+    }) {% endcomment %}
+  {% endfor %}
+
+  {% for order in orders %}
+    $('#add_select_' + {{ order.product_id_id }}).val('{{ order.quantity }}');
+  {% endfor %}
+</script>
+{% endblock script %}
